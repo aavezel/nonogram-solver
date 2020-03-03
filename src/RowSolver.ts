@@ -7,6 +7,10 @@ enum CellSolve {
 type RowDef = Array<CellSolve>;
 
 
+function showRowDef(r: RowDef) {
+    return r.map(e => "x*?"[e]).join("");
+}
+
 class RowSolver  {
     row_len: number;
     is_solved: boolean;
@@ -19,7 +23,7 @@ class RowSolver  {
         this.row_len = len;
         this.measures = measures;
         this.solved = new Array(this.row_len).fill(CellSolve.Unknown);
-        this.solutions = null;
+        this.solutions = [];
 
         if (measures.length == 0) {
             this.is_solved = true;
@@ -35,6 +39,8 @@ class RowSolver  {
     }
 
     solve() {
+        if (this.is_solved) return;
+
         let solutions = [];
         for (const sol of RowSolver.fill_array(this.row_len, this.measures)) {
             if (RowSolver.check_solution(this.solved, sol)) {
@@ -106,8 +112,8 @@ class RowSolver  {
     }
 
     show(){        
-            return {
-            solved: this.solved.map(e => "x*?"[e]).join(""),
+        return {
+            solved: showRowDef(this.solved),
             solutions: this.solutions.length,
             is_solved: this.is_solved
         }
@@ -115,4 +121,4 @@ class RowSolver  {
 
 }
 
-export default RowSolver;
+export {RowSolver, showRowDef};

@@ -1,17 +1,11 @@
 {
     "compilerOptions": {
-        "target": "ES2017",
-        "module": "amd",
-        "noImplicitAny": false,
-        "sourceMap": false,
-        "downlevelIteration": true,
-        "outFile": "/home/aavezel/Projects/nanogram solver/nanogram-solver/dest/solver.js",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "target": "ES5",
+        "downlevelIteration": true
     },
-    "compileOnSave": true,
-    "files": [
-        "src/RowSolver.ts"
-    ],  
     "include": [
         "src/**/*"
-    ]
+    ],
 }

@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "tsc --target es5 --downlevelIteration --outDir ./.tmp tests/index.ts",
+    "test": "npm run pretest && jasmine ./.tmp/tests/index.js",
+    "build": "rollup -c",
+    "start": "http-server ./dest -o --cors",
+    "watch": "rollup -c -w"
   },
   "repository": {
     "type": "git",
@@ -15,20 +19,14 @@
     "url": "https://github.com/aavezel/nanogram-solver/issues"
   },
   "homepage": "https://github.com/aavezel/nanogram-solver#readme",
-  "devDependencies": {},
-  "dependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/types": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "@svgr/webpack": "4.3.2",
-    "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
-    "@typescript-eslint/eslint-plugin": "1.12.0",
-    "@typescript-eslint/parser": "1.12.0",
-    "babel-eslint": "10.0.2",
-    "babel-jest": "^24.8.0",
-    "babel-loader": "8.0.6",
-    "babel-plugin-named-asset-import": "^0.3.2",
-    "babel-preset-react-app": "^9.0.0"
+  "devDependencies": {
+    "@types/jasmine": "^3.3.12",
+    "http-server": "^0.11.1",
+    "jasmine": "^3.4.0",
+    "rollup": "^1.10.0",
+    "rollup-plugin-copy": "^1.1.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.4.3"
   }
 }
