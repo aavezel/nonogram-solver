@@ -1,5 +1,5 @@
 {
-  "name": "nanogram-solver",
+  "name": "nonogram-row-solver",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aavezel/nanogram-solver.git"
+    "url": "git+https://github.com/aavezel/nonogram-row-solver.git"
   },
   "author": "AAVezel",
   "license": "MIT License",
   "bugs": {
-    "url": "https://github.com/aavezel/nanogram-solver/issues"
+    "url": "https://github.com/aavezel/nonogram-row-solver/issues"
   },
-  "homepage": "https://github.com/aavezel/nanogram-solver#readme",
+  "homepage": "https://github.com/aavezel/nonogram-row-solver/#readme",
   "devDependencies": {
     "@types/jasmine": "^3.3.12",
     "http-server": "^0.11.1",

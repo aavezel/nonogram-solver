@@ -1,1 +1,1 @@
-# nanogram-solver
+# nonogram-solver
