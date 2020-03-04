@@ -1,15 +1,4 @@
-enum CellSolve {
-    Blank = 0,
-    Colored = 1,
-    Unknown = 2
-}
-
-type RowDef = Array<CellSolve>;
-
-
-function showRowDef(r: RowDef) {
-    return r.map(e => "x*?"[e]).join("");
-}
+import { CellSolve, RowDef, showRowDef } from "./common";
 
 class RowSolver  {
     row_len: number;
@@ -39,7 +28,9 @@ class RowSolver  {
     }
 
     solve() {
-        if (this.is_solved) return;
+        if (this.is_solved) {
+            return;
+        }
 
         let solutions = [];
         for (const sol of RowSolver.fill_array(this.row_len, this.measures)) {
@@ -107,7 +98,7 @@ class RowSolver  {
     }
 
     getWeight(){
-        if (this.measures.length == 0) return 
+        if (this.measures.length == 0) return this.row_len;
         return RowSolver.measures_length(this.measures);
     }
 
