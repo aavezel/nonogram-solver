@@ -32,22 +32,25 @@ class RowSolver  {
             return;
         }
 
-        let solutions = [];
-        for (const sol of RowSolver.fill_array(this.row_len, this.measures)) {
-            if (RowSolver.check_solution(this.solved, sol)) {
-                solutions.push(sol);
+        if (this.solutions.length > 0) {
+            this.solutions = this.solutions.filter(sol => RowSolver.check_solution(this.solved, sol))
+        } else {
+            this.solutions = []
+            for (const sol of RowSolver.fill_array(this.row_len, this.measures)) {
+                if (RowSolver.check_solution(this.solved, sol)) {
+                    this.solutions.push(sol);
+                }
             }
         }
-        this.solutions = solutions;
-        if (solutions.length == 0) {
+        if (this.solutions.length == 0) {
             throw "Solutions not found";
         }
-        else if (solutions.length == 1) {
-            this.solved = solutions[0];
+        else if (this.solutions.length == 1) {
+            this.solved = this.solutions[0];
             this.is_solved = true;
-        } 
+        }
         else {
-            this.solved = RowSolver.join_solutions(solutions);            
+            this.solved = RowSolver.join_solutions(this.solutions);
         }
     }
 
@@ -56,6 +59,19 @@ class RowSolver  {
             if (solv == CellSolve.Unknown) return true;
             return solv == solutions[idx];
         });
+    }
+
+    setCell(index: number, solv: CellSolve) {
+        if ((solv == CellSolve.Unknown) || (this.solved[index] == solv)) {
+            return;
+        }
+        if (this.solved[index] != CellSolve.Unknown && this.solved[index] != solv) {
+            throw "Противоречие в решении!";
+        }
+        this.solved[index] = solv;
+        if (this.solved.every(c => c != CellSolve.Unknown)) {
+            this.is_solved = true;
+        }
     }
 
     static *fill_array(len: number, measures: Array<number>): Iterable<RowDef> {
@@ -71,7 +87,7 @@ class RowSolver  {
         const need_next = RowSolver.measures_length(next);
         const has_next = need_next > 0;
         const place = len - (first + need_next) - (has_next? 1: 0)
-        for (let i=0; i<=place; i++) { 
+        for (let i=0; i<=place; i++) {
             let arr: Array<CellSolve> = [...Array(i).fill(CellSolve.Blank), ...Array(first).fill(CellSolve.Colored)];
             if (has_next) arr.push(CellSolve.Blank);
             const next_len = len-arr.length;
@@ -102,7 +118,7 @@ class RowSolver  {
         return RowSolver.measures_length(this.measures);
     }
 
-    show(){        
+    show(){
         return {
             solved: showRowDef(this.solved),
             solutions: this.solutions.length,
@@ -112,4 +128,4 @@ class RowSolver  {
 
 }
 
-export {RowSolver, showRowDef};
+export {RowSolver};

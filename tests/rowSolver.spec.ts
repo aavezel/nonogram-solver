@@ -1,4 +1,5 @@
-import {RowSolver, showRowDef} from "../src/RowSolver";
+import {parseRowDef, showRowDef} from "../src/common";
+import {RowSolver} from "../src/RowSolver";
 
 describe("test row solver", () => {
     it("fill none", () => {
@@ -115,5 +116,17 @@ describe("test row solver", () => {
         expect(r5.getWeight()).toBe(1);
         const r0 = new RowSolver(5,[]); // full blank
         expect(r0.getWeight()).toBe(5);
-    });        
+    });
+    it("check test", () => {
+        const r1 = new RowSolver(15, [7,5]);
+        r1.solve()
+        const s = "??*****??*???*?";
+        r1.solved = parseRowDef(s)
+        r1.solve()
+        expect(r1.show()).toEqual({
+            solved: "?******?x*****x",
+            solutions: 2,
+            is_solved: false
+        })        
+    });
 });
